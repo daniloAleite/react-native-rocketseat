@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import {
+  Alert,
+  FlatList,
   Text,
-  View,
   TextInput,
   TouchableOpacity,
-  FlatList,
-  Alert,
+  View,
 } from 'react-native';
 import { Partcipant } from '../../components/Participant';
 import { styles } from './styles';
@@ -29,15 +29,10 @@ export function Home() {
     Alert.alert('Remover', `Deseja remover o participante ${name}?`, [
       {
         text: 'Sim',
-        onPress: () => {
-          let newList = participantList;
-          const index = participantList.indexOf(name);
-          if (index !== -1) {
-            newList.splice(index, 1);
-            setParticipantList(() => newList);
-            Alert.alert('Deletado!');
-          }
-        },
+        onPress: () =>
+          setParticipantList((prevState) =>
+            prevState.filter((participant) => participant !== name)
+          ),
       },
       {
         text: 'Não',
